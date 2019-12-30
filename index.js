@@ -5,6 +5,8 @@ const path = require("path");
 const expressHandlebars = require("express-handlebars");
 const bodyParser = require("body-parser");
 
+const patientController = require("./controllers/patient");
+
 application.use(bodyParser.urlencoded({
     extended : true
 }));
@@ -21,11 +23,13 @@ application.engine("hbs", expressHandlebars({
 
 application.set("view engine","hbs");
 
-// set up endpoint
+// Endpoints
 application.get("/", (request, response) => {
-    //response.send('<h1>Hello World<h1>')
     response.render("index", {});
 });
+
+// Controllers
+application.use("/patient", patientController);
 
 application.listen("3000", () => {
     console.log("Server started");
